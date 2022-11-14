@@ -2,7 +2,6 @@
 #define IMAGES_COMMON_HISTOGRAM_HPP
 
 #include "common/pixel.hpp"
-
 #include <vector>
 #include <cstdint>
 #include <filesystem>
