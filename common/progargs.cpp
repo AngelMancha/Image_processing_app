@@ -19,7 +19,7 @@ namespace {
 
   void print_format_help(std::ostream & os, std::string_view prog_name) noexcept {
     const std::filesystem::path prog{prog_name};
-    os << "  " << &prog.filename().native() << " in_path out_path oper\n";
+    os << "  " << prog.filename().native() << " in_path out_path oper\n";
     os << "    operation: copy, histo, mono, gauss, info\n";
   }
 
