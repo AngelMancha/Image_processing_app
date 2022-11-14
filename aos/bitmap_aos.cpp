@@ -86,6 +86,7 @@ namespace images::aos {
     bitmap_aos result{*this};
     const auto num_pixels = std::ssize(pixels);
     const auto [pixels_width, pixels_height] = get_size();
+
     for (int pixel_index = 0; pixel_index < num_pixels; ++pixel_index) {
       const auto [row, column] = get_pixel_position(pixel_index);
       color_accumulator accum;
