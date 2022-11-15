@@ -4,8 +4,11 @@
 namespace images::common {
 
   void histogram::add_color(pixel p) noexcept {
+    #pragma omp atomic
     channels[red_channel][p.red()]++;
+    #pragma omp atomic
     channels[green_channel][p.green()]++;
+    #pragma omp atomic
     channels[blue_channel][p.blue()]++;
   }
 

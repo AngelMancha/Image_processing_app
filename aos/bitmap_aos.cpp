@@ -86,7 +86,7 @@ namespace images::aos {
     bitmap_aos result{*this};
     const auto num_pixels = std::ssize(pixels);
     const auto [pixels_width, pixels_height] = get_size();
-
+    #pragma omp parallel for
     for (int pixel_index = 0; pixel_index < num_pixels; ++pixel_index) {
       const auto [row, column] = get_pixel_position(pixel_index);
       color_accumulator accum;
@@ -110,8 +110,9 @@ namespace images::aos {
   histogram bitmap_aos::generate_histogram() const noexcept {
     histogram histo;
     const int pixel_count = width() * height();
+    #pragma omp parallel for schedule(static) default(none) shared(pixel_count, histo)
     for (int i = 0; i < pixel_count; ++i) {
-      histo.add_color(pixels[i]);
+        histo.add_color(pixels[i]);
     }
     return histo;
   }
