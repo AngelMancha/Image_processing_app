@@ -1,6 +1,7 @@
 #include "bitmap_soa.hpp"
 #include "common/file_error.hpp"
 #include <fstream>
+#include <omp.h>
 
 namespace images::soa {
 
@@ -64,6 +65,7 @@ namespace images::soa {
 
   void bitmap_soa::to_gray() noexcept {
     const auto max = header.image_size();
+    #pragma omp parallel for default(none) shared(max)
     for (long i = 0; i < max; ++i) {
       const auto gray_level = to_gray_corrected(pixels[red_channel][i], pixels[green_channel][i],
           pixels[blue_channel][i]);
@@ -117,7 +119,8 @@ namespace images::soa {
   histogram bitmap_soa::generate_histogram() const noexcept {
     histogram histo;
     const int pixel_count = width() * height();
-    for (int i = 0; i < pixel_count; ++i) {
+      #pragma omp parallel for schedule(static) default(none) shared(pixel_count, histo)
+      for (int i = 0; i < pixel_count; ++i) {
       histo.add_red(pixels[red_channel][i]);
       histo.add_green(pixels[green_channel][i]);
       histo.add_blue(pixels[blue_channel][i]);
