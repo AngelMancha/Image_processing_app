@@ -74,7 +74,7 @@ namespace images::common {
       const auto [read_time, process_time, write_time] = generate_output<image_type>(out_dir,
           in_file, subcmd);
       const std::array times = {write_time - start_time, read_time - start_time,
-                                process_time - read_time, write_time - read_time};
+                                process_time - read_time, write_time - process_time};
       std::cout << "File: " << in_file.string();
       print_times(times);
 
