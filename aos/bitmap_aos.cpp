@@ -87,6 +87,8 @@ namespace images::aos {
     const auto num_pixels = std::ssize(pixels);
     const auto [pixels_width, pixels_height] = get_size();
 
+    #pragma omp parallel
+    #pragma omp for
     for (int pixel_index = 0; pixel_index < num_pixels; ++pixel_index) {
       const auto [row, column] = get_pixel_position(pixel_index);
       color_accumulator accum;
