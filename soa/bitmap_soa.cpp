@@ -99,6 +99,7 @@ namespace images::soa {
     #pragma omp parallel
     #pragma omp for
     for (int pixel_index = 0; pixel_index < num_pixels; ++pixel_index) {
+        int id = omp_get_thread_num();
       const auto [row, column] = get_pixel_position(pixel_index);
       color_accumulator accum;
       for (int gauss_index = 0; gauss_index < gauss_size; ++gauss_index) {
