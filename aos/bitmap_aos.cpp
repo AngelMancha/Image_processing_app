@@ -60,7 +60,7 @@ namespace images::aos {
 
   void bitmap_aos::to_gray() noexcept {
     const auto max = std::ssize(pixels);
-    #pragma omp parallel for schedule(static) default(none) shared(max)
+    #pragma omp parallel for default(none) shared(max)
     for (int i = 0; i < max; ++i) {
       pixels[i] = pixels[i].to_gray_corrected();
     }
@@ -113,7 +113,7 @@ namespace images::aos {
   histogram bitmap_aos::generate_histogram() const noexcept {
     histogram histo;
     const int pixel_count = width() * height();
-    #pragma omp parallel for schedule(static) default(none) shared(pixel_count, histo)
+    #pragma omp parallel for default(none) shared(pixel_count, histo)
     for (int i = 0; i < pixel_count; ++i) {
         histo.add_color(pixels[i]);
     }

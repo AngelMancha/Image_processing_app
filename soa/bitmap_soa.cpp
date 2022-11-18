@@ -99,7 +99,7 @@ namespace images::soa {
     #pragma omp parallel
     #pragma omp for
     for (int pixel_index = 0; pixel_index < num_pixels; ++pixel_index) {
-        int id = omp_get_thread_num();
+
       const auto [row, column] = get_pixel_position(pixel_index);
       color_accumulator accum;
       for (int gauss_index = 0; gauss_index < gauss_size; ++gauss_index) {
@@ -122,7 +122,7 @@ namespace images::soa {
   histogram bitmap_soa::generate_histogram() const noexcept {
     histogram histo;
     const int pixel_count = width() * height();
-      #pragma omp parallel for schedule(static) default(none) shared(pixel_count, histo)
+      #pragma omp parallel for default(none) shared(pixel_count, histo)
       for (int i = 0; i < pixel_count; ++i) {
       histo.add_red(pixels[red_channel][i]);
       histo.add_green(pixels[green_channel][i]);
